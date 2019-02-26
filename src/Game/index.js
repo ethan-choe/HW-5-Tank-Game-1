@@ -38,10 +38,32 @@ function isCircleCollision(c1, c2) {
 }
 
 function create() {
-  keys = this.input.keyboard.createCursorKeys();
+  keys = {
+
+    left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+   
+   
+    right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
+   
+   
+    up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
+   
+   
+    down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN),
+   
+   
+    space: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
+   
+   
+    a: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+   
+   
+    d: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+   
+    }
   graphics = this.add.graphics({
     fillStyle: { color: 0xeeeeee },
-    lineStyle: { width: 3, color: 0xeeeeee }
+    lineStyle: { width: 3, color: 0xff33cc }
   });
 }
 
@@ -67,9 +89,13 @@ function update(totalTime, deltaTime) {
   }
 
   // Fire bullet once when space key is pressed
+
   if (keys.space.isDown && !isLastSpaceDown) {
+
+    const canForwardX = -Math.sin(p1.cannonRot);
+    const canForwardY = Math.cos(p1.cannonRot);
     const newBullet = bullets.find(b => !b.isActive);
-    if (newBullet) newBullet.activate(p1.x, p1.y, p1.forwardRot);
+    if (newBullet) newBullet.activate(p1.x, p1.y, p1.cannonForwardX, p1.cannonForwardY);
   }
   isLastSpaceDown = keys.space.isDown;
 
